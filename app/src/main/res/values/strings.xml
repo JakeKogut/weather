@@ -5,4 +5,5 @@
     <string name="Temp">20</string>
     <string name="degree">°</string>
     <string name="Description">Description</string>
+    <string name="search">Search</string>
 </resources>
