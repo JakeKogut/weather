@@ -1,10 +1,15 @@
 package com.example.weather;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,12 +38,40 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        afficher();
+
         mDate=findViewById(R.id.mDate);
         mCity=findViewById(R.id.mCity);
         mTemp=findViewById(R.id.mTemp);
         mDescription=findViewById(R.id.mDescription);
         afficher();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.recherche,menu);
+        MenuItem menuItem=menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView)menuItem.getActionView();
+        searchView.setQueryHint("Ecrire le nom de la ville");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                maVille=query;
+                afficher();
+                InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                if(getCurrentFocus() !=null){
+                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+
     }
 
     public void afficher(){
@@ -66,6 +99,12 @@ public class MainActivity extends AppCompatActivity {
                     Calendar calendar= Calendar.getInstance();
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, MMMM, dd");
                     String formatted_date=simpleDateFormat.format(calendar.getTime());
+
+                    JSONObject sys=response.getJSONObject("sys");
+                    long timeS=sys.getLong("sunset");
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                    timeS=timeS*1000;
+                    String formatted_timeS=sdf.format(timeS);
 
                     mDate.setText(formatted_date);
                     String imageUri="http://openweathermap.org/img/w/"+icon+".png";
