@@ -53,12 +53,17 @@ public class MainActivity extends AppCompatActivity {
         MenuItem menuItem=menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView)menuItem.getActionView();
         searchView.setQueryHint("Ecrire le nom de la ville");
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+
+        {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 maVille=query;
                 afficher();
+
                 InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
                 if(getCurrentFocus() !=null){
                     inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
 
@@ -91,10 +96,10 @@ public class MainActivity extends AppCompatActivity {
 
                     String description=object.getString("description");
                     String city=response.getString("name");
-                    String pressure=response.getString("pressure");
+                  //  String pressure=response.getString("pressure");
                     String icon=object.getString("icon");
 
-                    mPressure.setText(pressure);
+                  // mPressure.setText(pressure);
                     mCity.setText(city);
                     mTemp.setText(temp);
                     mDescription.setText(description);
