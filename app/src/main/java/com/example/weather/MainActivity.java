@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         mDescription=findViewById(R.id.mDescription);
         afficher();
     }
-
+//menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.recherche,menu);
