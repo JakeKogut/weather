@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         mTemp=findViewById(R.id.mTemp);
         mDescription=findViewById(R.id.mDescription);
         mPressure=findViewById(R.id.mPressure);
-        afficher();
+
     }
 //menu
     @Override
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void afficher(){
-        String url="http://api.openweathermap.org/data/2.5/weather?q=Toronto&appid=0c9bf96526cc8b6414068b4e6c2843ca&units=metric";
+        String url="http://api.openweathermap.org/data/2.5/weather?q="+maVille+"&appid=0c9bf96526cc8b6414068b4e6c2843ca&units=metric";
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
