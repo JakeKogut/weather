@@ -29,7 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
-    TextView mDate, mCity, mTemp, mDescription;
+    TextView mDate, mCity, mTemp, mDescription,mPressure;
     ImageView imgIcon;
     String maVille="Toronto";
 
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         mCity=findViewById(R.id.mCity);
         mTemp=findViewById(R.id.mTemp);
         mDescription=findViewById(R.id.mDescription);
+        mPressure=findViewById(R.id.mPressure);
         afficher();
     }
 //menu
@@ -90,8 +91,10 @@ public class MainActivity extends AppCompatActivity {
 
                     String description=object.getString("description");
                     String city=response.getString("name");
+                    String pressure=response.getString("pressure");
                     String icon=object.getString("icon");
 
+                    mPressure.setText(pressure);
                     mCity.setText(city);
                     mTemp.setText(temp);
                     mDescription.setText(description);
